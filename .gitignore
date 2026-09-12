@@ -1,0 +1,14 @@
+# Virtual environments
+aienv/
+venv/
+.venv/
+
+# Env files (API keys)
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Database
+*.db
