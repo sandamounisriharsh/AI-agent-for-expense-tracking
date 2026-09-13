@@ -26,7 +26,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "http://localhost:8001"
+        "http://localhost:8001",
+        "https://ai-agent-for-expense-tracking.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
