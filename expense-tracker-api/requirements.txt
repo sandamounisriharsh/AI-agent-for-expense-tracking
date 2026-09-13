@@ -3,6 +3,7 @@ uvicorn[standard]
 pydantic
 python-dotenv
 PyJWT
-passlib[bcrypt]
-email-validator
 python-jose
+passlib[bcrypt]
+pwdlib[argon2]
+email-validator
