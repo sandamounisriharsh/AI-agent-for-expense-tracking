@@ -4,3 +4,4 @@ pydantic
 python-dotenv
 PyJWT
 passlib[bcrypt]
+email-validator
