@@ -1,0 +1,154 @@
+.hero {
+  position: relative;
+
+  min-height: 100vh;
+  width: 100%;
+
+  padding: 150px 7vw 70px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      rgba(171, 119, 48, 0.09),
+      transparent 28%
+    );
+}
+
+
+/* Label */
+
+.availability {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 24px;
+
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.17em;
+
+  color: rgba(244, 239, 230, 0.52);
+}
+
+
+/* Main heading */
+
+.hero h1 {
+  position: relative;
+  z-index: 5;
+
+  margin: 0;
+
+  font-family: "Anton", sans-serif;
+  font-size: clamp(65px, 10.5vw, 170px);
+  font-weight: 400;
+
+  line-height: 0.82;
+
+  letter-spacing: -0.035em;
+
+  color: #f2ede3;
+
+  text-transform: uppercase;
+}
+
+.hero h1 span {
+  color: #b99558;
+}
+
+
+/* Description */
+
+.hero-description {
+  position: relative;
+  z-index: 6;
+
+
+  margin: 45px 0 22px;
+
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+
+  line-height: 1.8;
+
+  letter-spacing: 0.12em;
+
+  color: rgba(244, 239, 230, 0.48);
+}
+
+
+/* Launch button */
+
+.launch-button {
+  position: relative;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 13px 19px;
+
+  border: 1px solid rgba(196, 153, 82, 0.65);
+  border-radius: 4px;
+
+  background: rgba(185, 149, 88, 0.08);
+
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+
+  letter-spacing: 0.12em;
+
+  color: #d5b274;
+
+  transition: 0.25s ease;
+}
+
+.launch-button:hover {
+  background: #b99558;
+  color: #100d09;
+}
+
+
+/* Hero footer */
+
+.hero-bottom {
+  position: absolute;
+
+  bottom: 24px;
+  left: 42px;
+  right: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+
+  letter-spacing: 0.12em;
+
+  color: rgba(244, 239, 230, 0.3);
+}
+
+.scroll-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scroll-indicator span {
+  display: block;
+
+  width: 25px;
+  height: 1px;
+
+  background: #b99558;
+}

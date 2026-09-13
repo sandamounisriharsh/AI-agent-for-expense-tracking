@@ -1,49 +1,54 @@
-# main.py
-from fastapi import FastAPI
-from pydantic import BaseModel
-from sqlalchemy import create_engine, Column, Integer, Float, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from contextlib import asynccontextmanager
 
-engine = create_engine("sqlite:///./expenses.db")
-Base = declarative_base()
-SessionLocal = sessionmaker(bind=engine)
+from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 
-class Expense(Base):
-    __tablename__ = "expenses"
-    id = Column(Integer, primary_key=True, index=True)
-    amount = Column(Float)
-    category = Column(String)
-    description = Column(String)
 
-Base.metadata.create_all(bind=engine)
-app = FastAPI()
+from database import init_db
+from routers.auth import router as auth_router
+from dependencies.auth import get_current_user
+from routers.expenses import router as expenses_router
 
-class ExpenseCreate(BaseModel):
-    amount: float
-    category: str
-    description: str
 
-@app.post("/expenses")
-def add_expense(expense: ExpenseCreate):
-    db = SessionLocal()
-    e = Expense(**expense.dict())
-    db.add(e); db.commit(); db.refresh(e)
-    return {"id": e.id, "amount": e.amount, "category": e.category}
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()
+    yield
 
-@app.get("/expenses")
-def get_expenses(category: str = None):
-    db = SessionLocal()
-    q = db.query(Expense)
-    if category:
-        q = q.filter(Expense.category == category)
-    return [{"id": e.id, "amount": e.amount, "category": e.category, "description": e.description} for e in q.all()]
 
-@app.get("/expenses/total")
-def get_total(category: str = None):
-    db = SessionLocal()
-    q = db.query(Expense)
-    if category:
-        q = q.filter(Expense.category == category)
-    total = sum(e.amount for e in q.all())
-    return {"category": category or "all", "total": total}
+app = FastAPI(
+    title="Expense Tracker API",
+    lifespan=lifespan
+)
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:8001"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(auth_router)
+app.include_router(expenses_router)
+
+
+@app.get("/")
+def root():
+    return {
+        "message": "Expense Tracker API is running"
+    }
+
+
+@app.get("/test-auth")
+def test_auth(
+    user_id: int = Depends(get_current_user)
+):
+    return {
+        "message": "Authentication successful",
+        "user_id": user_id
+    }

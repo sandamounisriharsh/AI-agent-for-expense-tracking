@@ -1,0 +1,87 @@
+.float-card {
+  position: absolute;
+  z-index: 8;
+
+  min-width: 150px;
+
+  padding: 14px 16px;
+
+  text-align: left;
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 5px;
+
+  background: rgba(20, 17, 13, 0.72);
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.3);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.card-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 7px;
+
+  font-family: "DM Mono", monospace;
+  font-size: 7px;
+
+  letter-spacing: 0.12em;
+
+  color: rgba(244, 239, 230, 0.4);
+}
+
+.float-card strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  font-family: "DM Mono", monospace;
+  font-size: 15px;
+  font-weight: 500;
+
+  color: #dfc18a;
+}
+
+.float-card small {
+  font-family: "DM Mono", monospace;
+  font-size: 7px;
+
+  color: rgba(244, 239, 230, 0.32);
+}
+
+.green-dot {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #9eb372;
+}
+
+
+/* Positions */
+
+.card-left {
+  left: 5%;
+  top: 51%;
+}
+
+.card-right {
+  right: 5%;
+  top: 48%;
+}
+
+.card-bottom-left {
+  left: 14%;
+  bottom: 11%;
+}
+
+.card-bottom-right {
+  right: 12%;
+  bottom: 9%;
+}

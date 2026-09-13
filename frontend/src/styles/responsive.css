@@ -1,0 +1,189 @@
+@media (max-width: 900px) {
+
+  .navbar {
+    padding: 0 22px;
+  }
+
+  .nav-center {
+    display: none;
+  }
+
+  .hero {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .float-card {
+    transform: scale(0.85);
+  }
+
+  .card-left {
+    left: -10px;
+  }
+
+  .card-right {
+    right: -10px;
+  }
+
+  .card-bottom-left {
+    left: 0;
+  }
+
+  .card-bottom-right {
+    right: 0;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    min-height: 250px;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .navbar {
+    height: 64px;
+  }
+
+  .mobile-menu {
+    top: 64px;
+  }
+
+  .try-button {
+    display: none;
+  }
+
+  .hero {
+    min-height: 850px;
+    padding-top: 125px;
+  }
+
+  .hero h1 {
+    font-size: clamp(60px, 17vw, 100px);
+  }
+
+  .hero-description {
+    font-size: 8px;
+  }
+
+  .wallet-area {
+    top: 58%;
+
+    transform:
+      translate(-50%, -50%)
+      scale(0.75);
+  }
+
+  .float-card {
+    min-width: 125px;
+
+    padding: 10px 12px;
+  }
+
+  .float-card strong {
+    font-size: 12px;
+  }
+
+  .card-left {
+    top: 52%;
+    left: -35px;
+  }
+
+  .card-right {
+    top: 49%;
+    right: -35px;
+  }
+
+  .card-bottom-left {
+    bottom: 14%;
+    left: -25px;
+  }
+
+  .card-bottom-right {
+    bottom: 10%;
+    right: -25px;
+  }
+
+  .hero-bottom {
+    left: 20px;
+    right: 20px;
+  }
+
+  .hero-bottom > span {
+    display: none;
+  }
+
+  .section,
+  .agent-section {
+    padding: 90px 20px;
+  }
+
+  .section h2,
+  .agent-section h2 {
+    font-size: 65px;
+  }
+
+  .section-description {
+    margin-bottom: 40px;
+  }
+
+  .chat-box {
+    flex-direction: column;
+  }
+
+  .chat-box button {
+    min-height: 42px;
+
+    justify-content: center;
+  }
+
+  .agent-top {
+    padding: 0 12px;
+  }
+
+  .agent-model {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .analytics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .category-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .category-percentage {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-section {
+    padding-top: 70px;
+  }
+
+  .analytics-header {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .analytics-live {
+    display: none;
+  }
+
+  .category-breakdown {
+    padding: 22px;
+  }
+}

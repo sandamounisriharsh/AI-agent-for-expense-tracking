@@ -1,0 +1,186 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  width: 100%;
+  height: 74px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 42px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: rgba(9, 8, 7, 0.72);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+
+/* Brand */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-family: "DM Mono", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.brand-mark {
+  width: 28px;
+  height: 28px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(212, 164, 82, 0.7);
+  border-radius: 50%;
+
+  color: #d7ad61;
+  font-size: 13px;
+}
+
+.brand-light {
+  color: #b99b69;
+}
+
+
+/* Center navigation */
+
+.nav-center {
+  position: absolute;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 38px;
+}
+
+.nav-center a {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+
+  color: rgba(244, 239, 230, 0.55);
+
+  transition: color 0.2s ease;
+}
+
+.nav-center a:hover {
+  color: #d8b16c;
+}
+
+
+/* Actions */
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.try-button,
+.menu-button {
+  height: 34px;
+
+  padding: 0 15px;
+
+  border-radius: 4px;
+
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.try-button {
+  border: 1px solid #b99457;
+
+  background: #b99457;
+  color: #100d09;
+
+  transition: 0.2s ease;
+}
+
+.try-button:hover {
+  background: #d2ad69;
+  border-color: #d2ad69;
+}
+
+.menu-button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  background: transparent;
+
+  color: rgba(244, 239, 230, 0.75);
+}
+
+.menu-button:hover {
+  border-color: rgba(212, 164, 82, 0.5);
+  color: #d8b16c;
+}
+
+
+/* Mobile menu */
+
+.mobile-menu {
+  position: fixed;
+  top: 74px;
+  right: 20px;
+  z-index: 99;
+
+  width: 190px;
+
+  padding: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+
+  background: rgba(15, 12, 9, 0.96);
+
+  backdrop-filter: blur(15px);
+}
+
+.mobile-menu a {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+
+  color: #b8b0a3;
+}
+
+.mobile-menu a:hover {
+  color: #d8b16c;
+}
+
+.logout-button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #aaa;
+  padding: 9px 14px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  color: #d6a652;
+  border-color: rgba(214, 166, 82, 0.5);
+}

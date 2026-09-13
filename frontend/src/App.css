@@ -1,0 +1,11 @@
+@import "./styles/base.css";
+@import "./styles/navbar.css";
+@import "./styles/hero.css";
+@import "./styles/wallet.css";
+@import "./styles/floating-card.css";
+@import "./styles/sections.css";
+@import "./styles/agent.css";
+@import "./styles/responsive.css";
+@import "./styles/auth.css";
+@import "./styles/analytics.css";
+@import "./styles/dashboard.css";
