@@ -29,16 +29,19 @@ app = FastAPI(
 
 FRONTEND_URL = os.getenv("FRONTEND_URL")
 
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://ai-agent-for-expense-tracking.vercel.app",
+    "https://ai-agent-for-expense-tracking-jhecpm3kj-sonu-e2da.vercel.app",
+]
+
+if FRONTEND_URL:
+    origins.append(FRONTEND_URL)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        FRONTEND_URL,
-    ] if FRONTEND_URL else [
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
