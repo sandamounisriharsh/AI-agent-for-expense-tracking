@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import Home from "./pages/home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Login from "./pages/login";
+import Signup from "./pages/signup";
 
 
 function App() {
