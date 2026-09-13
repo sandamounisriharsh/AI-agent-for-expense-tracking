@@ -7,6 +7,10 @@ from pydantic import BaseModel
 
 from main import run_agent
 
+import os
+
+
+
 
 # ============================================================
 # APP
@@ -23,9 +27,15 @@ app = FastAPI(
 # CORS
 # ============================================================
 
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        FRONTEND_URL,
+    ] if FRONTEND_URL else [
         "http://localhost:5173",
         "http://127.0.0.1:5173",
     ],
