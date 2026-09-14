@@ -21,6 +21,7 @@ from langchain_core.messages import (
 load_dotenv()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
 BASE_URL = os.getenv(
     "BASE_URL",
     "http://localhost:8000"
@@ -70,11 +71,20 @@ class AddExpenseInput(BaseModel):
     )
 
 
+class ExpenseItem(BaseModel):
+    amount: float
+    category: str
+    description: str = ""
+
+
+class AddExpensesInput(BaseModel):
+    expenses: list[ExpenseItem]
+
+
 class GetTotalInput(BaseModel):
     category: str | None = Field(
         default=None,
-        description="Optional category to calculate"
-        " the total for"
+        description="Optional category to calculate the total for"
     )
 
 
@@ -226,6 +236,81 @@ def create_tools(access_token: str):
             })
 
     # ========================================================
+    # ADD MULTIPLE EXPENSES
+    # ========================================================
+
+    @tool(args_schema=AddExpensesInput)
+    def add_expenses(
+        expenses: list[ExpenseItem],
+    ) -> str:
+        """
+        Add multiple expenses for the authenticated user.
+        """
+
+        results = []
+
+        try:
+            for expense in expenses:
+
+                response = requests.post(
+                    f"{BASE_URL}/expenses",
+                    headers={
+                        **headers,
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "amount": expense.amount,
+                        "category": expense.category,
+                        "description": expense.description,
+                    },
+                    timeout=10,
+                )
+
+                if not response.ok:
+
+                    results.append({
+                        "success": False,
+                        "message": response.text,
+                        "expense": {
+                            "amount": expense.amount,
+                            "category": expense.category,
+                            "description": expense.description,
+                        },
+                    })
+
+                else:
+
+                    results.append({
+                        "success": True,
+                        "expense": response.json(),
+                    })
+
+            successful = sum(
+                1
+                for result in results
+                if result["success"]
+            )
+
+            return json.dumps({
+                "success": (
+                    successful == len(expenses)
+                ),
+                "message": (
+                    f"{successful} of "
+                    f"{len(expenses)} expenses "
+                    "added successfully"
+                ),
+                "results": results,
+            })
+
+        except requests.RequestException as e:
+
+            return json.dumps({
+                "success": False,
+                "message": str(e),
+            })
+
+    # ========================================================
     # GET TOTAL
     # ========================================================
 
@@ -238,6 +323,7 @@ def create_tools(access_token: str):
         """
 
         try:
+
             params = {}
 
             if category:
@@ -251,6 +337,7 @@ def create_tools(access_token: str):
             )
 
             if not response.ok:
+
                 return json.dumps({
                     "success": False,
                     "message": response.text,
@@ -268,6 +355,7 @@ def create_tools(access_token: str):
             })
 
         except requests.RequestException as e:
+
             return json.dumps({
                 "success": False,
                 "message": str(e),
@@ -286,6 +374,7 @@ def create_tools(access_token: str):
         """
 
         try:
+
             params = {}
 
             if category:
@@ -299,6 +388,7 @@ def create_tools(access_token: str):
             )
 
             if not response.ok:
+
                 return json.dumps({
                     "success": False,
                     "message": response.text,
@@ -336,6 +426,7 @@ def create_tools(access_token: str):
             })
 
         except requests.RequestException as e:
+
             return json.dumps({
                 "success": False,
                 "message": str(e),
@@ -354,6 +445,7 @@ def create_tools(access_token: str):
         """
 
         try:
+
             params = {}
 
             if category:
@@ -367,6 +459,7 @@ def create_tools(access_token: str):
             )
 
             if not response.ok:
+
                 return json.dumps({
                     "success": False,
                     "message": response.text,
@@ -375,6 +468,7 @@ def create_tools(access_token: str):
             expenses = response.json()
 
             if not expenses:
+
                 return json.dumps({
                     "success": True,
                     "count": 0,
@@ -466,6 +560,7 @@ def create_tools(access_token: str):
             })
 
         except requests.RequestException as e:
+
             return json.dumps({
                 "success": False,
                 "message": str(e),
@@ -494,7 +589,7 @@ def create_tools(access_token: str):
         are used only to preserve requested edit values.
         """
 
-        def normalize_word(word: str) -> str:
+        def normalize_word(word: str):
 
             word = (
                 word.lower()
@@ -546,6 +641,7 @@ def create_tools(access_token: str):
             )
 
             if not response.ok:
+
                 return json.dumps({
                     "success": False,
                     "message": response.text,
@@ -703,6 +799,7 @@ def create_tools(access_token: str):
                     and category_match
                     and amount_match
                 ):
+
                     matches.append(
                         expense
                     )
@@ -855,6 +952,7 @@ def create_tools(access_token: str):
 
     return [
         add_expense,
+        add_expenses,
         get_total,
         get_expenses,
         analyze_expenses,
@@ -999,8 +1097,10 @@ def run_agent(
     # delete_expense and edit_expense are deliberately
     # NOT exposed to the LLM. They are called internally
     # only after confirmation.
+
     agent_tools = [
         tool_map["add_expense"],
+        tool_map["add_expenses"],
         tool_map["get_total"],
         tool_map["get_expenses"],
         tool_map["analyze_expenses"],
@@ -1025,10 +1125,13 @@ def run_agent(
             })
 
             try:
+
                 parsed = json.loads(
                     result
                 )
+
             except Exception:
+
                 parsed = {}
 
             if parsed.get("success"):
@@ -1132,10 +1235,13 @@ def run_agent(
             })
 
             try:
+
                 parsed = json.loads(
                     result
                 )
+
             except Exception:
+
                 parsed = {}
 
             if parsed.get("success"):
@@ -1500,10 +1606,13 @@ def run_agent(
             )
 
             try:
+
                 parsed = json.loads(
                     result
                 )
+
             except Exception:
+
                 parsed = {}
 
             if not parsed.get(
@@ -1549,6 +1658,7 @@ def run_agent(
                 "delete" in lower_input
                 or "remove" in lower_input
             ):
+
                 action = "delete"
 
             elif (
@@ -1556,9 +1666,11 @@ def run_agent(
                 or "change" in lower_input
                 or "update" in lower_input
             ):
+
                 action = "edit"
 
             else:
+
                 action = "delete"
 
             # ------------------------------------------------
@@ -1704,12 +1816,16 @@ def run_agent(
                     "pending_edit": {
                         "expense_id":
                             expense["id"],
+
                         "expense":
                             expense,
+
                         "amount":
                             new_amount,
+
                         "category":
                             new_category,
+
                         "description":
                             new_description,
                     },
@@ -1722,19 +1838,10 @@ def run_agent(
             # MULTIPLE MATCHES
             # ------------------------------------------------
 
-            if action == "delete":
-
-                response_text = (
-                    f"I found {len(matches)} "
-                    "matching expenses:"
-                )
-
-            else:
-
-                response_text = (
-                    f"I found {len(matches)} "
-                    "matching expenses:"
-                )
+            response_text = (
+                f"I found {len(matches)} "
+                "matching expenses:"
+            )
 
             for index, expense in enumerate(
                 matches[:4],
@@ -1788,8 +1895,10 @@ def run_agent(
                     "changes": {
                         "amount":
                             new_amount,
+
                         "category":
                             new_category,
+
                         "description":
                             new_description,
                     },
@@ -1805,10 +1914,13 @@ def run_agent(
         )
 
         try:
+
             parsed_result = json.loads(
                 result
             )
+
         except Exception:
+
             parsed_result = result
 
         # ----------------------------------------------------
