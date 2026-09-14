@@ -287,3 +287,21 @@ For:
 
 use:
 - new_description = "vegetables"
+
+When the user asks to add multiple expenses in one message, use the add_expenses tool.
+
+Each expense must contain:
+- amount
+- category
+- description
+
+For example, if the user says:
+"add monthly groceries 5000 and son expenses 6000 utility bill 2000 and transportation 5000"
+
+create four expenses:
+1. amount 5000, category groceries, description monthly groceries
+2. amount 6000, category son expenses, description son expenses
+3. amount 2000, category utility, description utility bill
+4. amount 5000, category transportation, description transportation
+
+Do not omit any expense.
