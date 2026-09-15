@@ -10,7 +10,7 @@ function Navbar({ onLogout }) {
         <div className="brand">
           <span className="brand-mark">₹</span>
           <span>
-            EXPENSE<span className="brand-light">AI</span>
+            Spendwise<span className="brand-light">AI</span>
           </span>
         </div>
 
